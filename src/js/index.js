@@ -12,6 +12,11 @@ form.addEventListener('submit', onSubmit);
 
 const unsplashApi = new UnsplashApi();
 
+const lightbox = new SimpleLightbox('.gallery a', {
+  captionsData: 'alt',
+  captionDelay: 250,
+});
+
 const onLoadMoreBtnElClick = async event => {
   try {
     unsplashApi.page += 1;
@@ -20,6 +25,7 @@ const onLoadMoreBtnElClick = async event => {
     const totalPages = Math.ceil(total / unsplashApi.per_page);
     const photoCards = generatePhotoCards(hits);
     gallery.insertAdjacentHTML('beforeend', photoCards);
+    lightbox.refresh();
     if (totalPages === unsplashApi.page) {
       loadMore.classList.add('is-hidden');
       loadMore.removeEventListener('click', onLoadMoreBtnElClick);
@@ -66,16 +72,20 @@ async function onSubmit(event) {
     if (totalPages === 1) {
       const photoCards = generatePhotoCards(hits);
       gallery.innerHTML = photoCards;
+      lightbox.refresh();
       loadMore.classList.add('is-hidden');
       loadMore.removeEventListener('click', onLoadMoreBtnElClick);
+      Notiflix.Notify.failure(
+        "We're sorry, but you've reached the end of search results.",
+        {
+          position: 'center-center',
+          timeout: 5000,
+        }
+      );
       return;
     }
     const photoCards = generatePhotoCards(hits);
     gallery.innerHTML = photoCards;
-    const lightbox = new SimpleLightbox('.gallery a', {
-      captionsData: 'alt',
-      captionDelay: 250,
-    });
     lightbox.refresh();
     loadMore.classList.remove('is-hidden');
     loadMore.addEventListener('click', onLoadMoreBtnElClick);
