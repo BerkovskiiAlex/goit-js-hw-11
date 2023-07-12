@@ -32,7 +32,6 @@ const onLoadMoreBtnElClick = async event => {
       Notiflix.Notify.failure(
         "We're sorry, but you've reached the end of search results.",
         {
-          position: 'center-center',
           timeout: 5000,
         }
       );
@@ -53,7 +52,6 @@ async function onSubmit(event) {
     const { total, totalHits, hits } = response.data;
     if (hits.length !== 0) {
       Notiflix.Notify.success(`"Hooray! We found ${totalHits} images."`, {
-        position: 'center-center',
         timeout: 5000,
       });
     }
@@ -62,7 +60,6 @@ async function onSubmit(event) {
       Notiflix.Notify.failure(
         `Sorry, there are no images matching your search query. Please try again.`,
         {
-          position: 'center-center',
           timeout: 5000,
         }
       );
@@ -78,7 +75,6 @@ async function onSubmit(event) {
       Notiflix.Notify.failure(
         "We're sorry, but you've reached the end of search results.",
         {
-          position: 'center-center',
           timeout: 5000,
         }
       );
