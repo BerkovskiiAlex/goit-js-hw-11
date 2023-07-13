@@ -61,11 +61,15 @@ const onLoadMoreBtnElClick = async event => {
 async function onSubmit(event) {
   unsplashApi.page = 1;
   event.preventDefault();
-  const searchQuery = event.target.elements.searchQuery.value;
+  const searchQuery = event.target.elements.searchQuery.value.trim();
+  if (searchQuery === '') {
+    return;
+  }
   unsplashApi.q = searchQuery;
   try {
     const response = await unsplashApi.fetchPhotos();
     const { total, totalHits, hits } = response.data;
+
     if (hits.length !== 0) {
       Notiflix.Notify.success(`"Hooray! We found ${totalHits} images."`, {
         timeout: 5000,
