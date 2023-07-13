@@ -44,6 +44,16 @@ const onLoadMoreBtnElClick = async event => {
       behavior: 'smooth',
     });
   } catch (err) {
+    if (err.response.status === 400) {
+      Notiflix.Notify.failure(
+        "We're sorry, but you've reached the end of search results.",
+        {
+          timeout: 5000,
+        }
+      );
+      loadMore.classList.add('is-hidden');
+      loadMore.removeEventListener('click', onLoadMoreBtnElClick);
+    }
     console.log(err);
   }
 };
