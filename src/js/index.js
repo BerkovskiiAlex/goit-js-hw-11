@@ -36,9 +36,8 @@ const onLoadMoreBtnElClick = async event => {
         }
       );
     }
-    const { height: cardHeight } = document
-      .querySelector('.gallery')
-      .firstElementChild.getBoundingClientRect();
+    const { height: cardHeight } =
+      gallery.firstElementChild.getBoundingClientRect();
     window.scrollBy({
       top: cardHeight * 3,
       behavior: 'smooth',
